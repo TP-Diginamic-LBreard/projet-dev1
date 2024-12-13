@@ -6,3 +6,10 @@ __pycache__/
 .venv
 env/
 venv/
+
+# Spécial Loïc
+.direnv/
+mysql/
+!.envrc
+!flake.nix
+!flake.lock
