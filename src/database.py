@@ -14,10 +14,12 @@ SQLALCHEMY_DATABASE_URL = os.getenv('DB_CONN')
 # permet de définir les paramètre de connexion à la base
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
+SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
+
 # creation d'une session
 def get_db():
     """Create a session for the database connection"""
-    db = sessionmaker(bind=engine, autoflush=False, autocommit=False)
+    db = SessionLocal()
     try: 
         yield db
     finally:
