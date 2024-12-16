@@ -26,11 +26,11 @@ use projet_dev
 ```
 
 ## Create .env file
-Create .env file at project root  
-Add needed variable in it : 
+
+Create a `.env` file in the project's root directory and add the following into it, replacing `[USER]` and `[PASSWORD]` with your own values. Modify the connection string at your convenience (if using Nix: supply the `?unix_socket=<path>` URI parameter and remove the `localhost` host parameter)
+
 ```
-BDDPASS ="password"
-BDDUSER= "username"
+DB_CONN='mysql+pymysql://[USER]:[PASSWORD]@localhost/projet_dev'
 ```
 
 ## Connect to database
