@@ -14,7 +14,7 @@ class ObjectCreate(BaseModel):
     o_ordre_aff: int = None
 
 class ObjectUpdate(BaseModel):
-    codobj: int
+    codobj: int 
     libobj: str = None 
     tailleobj: str = None
     puobj: float = None
