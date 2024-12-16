@@ -37,7 +37,7 @@ class Client(Base):
 	adresse1cli = Column(String(50), default=None)
 	adresse2cli = Column(String(50), default=None)
 	adresse3cli = Column(String(50), default=None)
-	villecli_id = Column(Integer,ForeignKey('t_communes.id'))
+	# villecli_id = Column(Integer,ForeignKey('t_communes.id'))
 	telcli = Column(String(10), default=None)
 	emailcli = Column(String(255), default=None)
 	portcli = Column(String(10), default=None)
@@ -71,7 +71,7 @@ class Conditionnement(Base):
 	prixcond = Column(Numeric, default=0.0000)
 	ordreimp = Column(Integer)
 	# codobj = Column(Integer, ForeignKey('t_objet.codobj'))
-	objets = relationship("ObjetCond", back_populates='condit')
+	# objets = relationship("ObjetCond", back_populates='condit')
 
 
 class Objet(Base):
@@ -88,7 +88,7 @@ class Objet(Base):
 	o_cartp = Column(Integer, default=0)
 	points = Column(Integer, default=0)
 	o_ordre_aff = Column(Integer, default=0)
-	condit = relationship("ObjetCond",back_populates='objets')
+	# condit = relationship("ObjetCond",back_populates='objets')
 
 
 class ObjetCond(Base):
@@ -99,8 +99,8 @@ class ObjetCond(Base):
 	qteobjfin = Column(Integer, default=0)
 	codobj = Column(Integer, ForeignKey('t_objet.codobj'))
 	codcond = Column(Integer, ForeignKey('t_conditionnement.idcondit'))
-	objets = relationship("Objet",back_populates='condit')
-	condit = relationship("Conditionnement",back_populates='objets')
+	# objets = relationship("Objet",back_populates='condit')
+	# condit = relationship("Conditionnement",back_populates='objets')
 
 
 class Detail(Base):
