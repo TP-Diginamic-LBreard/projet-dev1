@@ -24,12 +24,18 @@ def get_object(id: int, db: Session = Depends(get_db)):
     
 @router_object.post("/create")
 def post_object(object: ObjectCreate ,db = Depends(get_db)):
-    return create_object(object, db)
+    try:
+        return create_object(object, db)
+    except:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @router_object.put("/update/{id}")
 def put_object(object: ObjectUpdate, db = Depends(get_db)):
-    return update_object(object, db)
+    try:
+        return update_object(object, db)
+    except: 
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @router_object.delete("/{id}/delete")
 def delete_object(id: int, db = Depends(get_db)):
