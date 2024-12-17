@@ -14,7 +14,7 @@ def create_client(db, client_data: dict):
 
 # Récupérer un client par ID
 def get_client_by_id(db, id):
-    client = db.query(Client).filter(Client.codcli == id).first()
+    client = db.query(Client).get(id)
     if not client:
         raise ValueError(f"Client avec l'ID {id} introuvable.")
     return client
@@ -36,4 +36,3 @@ def delete_client(db, id):
         db.delete(client)
         db.commit()
     return client
-

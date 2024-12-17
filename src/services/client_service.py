@@ -10,6 +10,7 @@ def get_all(db):
 def create_new_client(db, client_data: dict):
     if not client_data.get("nomcli"):
         raise ValueError("Le nom est obligatoires pour créer un client.")
+    client_data["nomcli"] = client_data["nomcli"].upper()
     return create_client(db, client_data)
 
 # Récupérer un client par ID
@@ -18,6 +19,8 @@ def get_client(db, client_id):
 
 # Mettre à jour un client existant
 def update_existing_client(db, client_id, client_data: dict):
+    if "nomcli" in client_data:
+        client_data["nomcli"] = client_data["nomcli"].upper()
     client = update_client(db, client_id, client_data)
     if not client:
         raise ValueError("Client non trouvé ou impossible à mettre à jour.")
