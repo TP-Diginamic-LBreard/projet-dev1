@@ -15,8 +15,10 @@
           };
           pythonEnv = pkgs.python312.withPackages(ps: with ps; [
             fastapi
+            httpx
             pydantic
             pymysql
+            pytest
             python-dotenv
             sqlalchemy
             uvicorn

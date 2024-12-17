@@ -1,6 +1,8 @@
 fastapi
+httpx
 pydantic
 pymysql
+pytest
 sqlalchemy
 uvicorn
 python-dotenv
