@@ -19,9 +19,5 @@ def add_commande(commande: Commande, db: Session) -> int:
     return commande.codcde
 
 
-def update_commande(id: int, commande: Commande, db: Session):
-    pass
-
-
 def delete_commande(commande: Commande, db: Session):
     db.delete(commande)

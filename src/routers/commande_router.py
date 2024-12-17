@@ -35,14 +35,13 @@ def post_commande(
     try:
         id = service.add_commande(commande, db)
     except Exception as e:
+        # Failure ⇒ rollback
+        db.rollback()
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
     else:
         # Success ⇒ commit and return (avoid finally)
         db.commit()
         return f"/commande/{id}"
-    finally:
-        # Failure ⇒ rollback
-        db.rollback()
 
 
 @router_commande.put(
@@ -62,6 +61,8 @@ def put_commande(
     try:
         id = service.put_commande(commande, db)
     except Exception as e:
+        # Failure ⇒ rollback
+        db.rollback()
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
     else:
         # Success ⇒ commit and return (avoid finally)
@@ -70,10 +71,7 @@ def put_commande(
             return f"/commande/{id}"
         else:
             response.status_code = status.HTTP_204_NO_CONTENT
-            return
-    finally:
-        # Failure ⇒ rollback
-        db.rollback()
+            return None
 
 
 @router_commande.get(
@@ -114,17 +112,17 @@ def patch_commande(
         service.update_commande(id, commande, db)
     except ValueError:
         # Unknown ID
+        # Failure ⇒ rollback
+        db.rollback()
         raise HTTPException(status.HTTP_404_NOT_FOUND)
     except Exception as e:
         # Other error
+        # Failure ⇒ rollback
+        db.rollback()
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
     else:
         # Success ⇒ commit and return (avoid finally)
         db.commit()
-        return
-    finally:
-        # Failure ⇒ rollback
-        db.rollback()
 
 
 @router_commande.delete(
@@ -143,14 +141,14 @@ def delete_commande(
         service.delete_commande(id, db)
     except ValueError:
         # Unknown ID
+        # Failure ⇒ rollback
+        db.rollback()
         raise HTTPException(status.HTTP_404_NOT_FOUND)
     except Exception as e:
         # Other error
+        # Failure ⇒ rollback
+        db.rollback()
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
     else:
         # Success ⇒ commit and return (avoid finally)
         db.commit()
-        return
-    finally:
-        # Failure ⇒ rollback
-        db.rollback()
