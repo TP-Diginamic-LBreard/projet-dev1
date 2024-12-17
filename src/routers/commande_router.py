@@ -1,5 +1,6 @@
 from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi.responses import PlainTextResponse
 from sqlalchemy.orm import Session
 
 from src.database import get_db
@@ -25,6 +26,7 @@ def get_commandes(db = Depends(get_db)) -> list[FullCommande]:
         "/",
         summary="Nouvelle commande",
         status_code=status.HTTP_201_CREATED,
+        response_class=PlainTextResponse,
 )
 def post_commande(
         commande: Commande,
@@ -46,6 +48,7 @@ def post_commande(
 @router_commande.put(
         "/",
         status_code=status.HTTP_201_CREATED,
+        response_class=PlainTextResponse,
         responses={
             201: {"description": "Commande crée"},
             204: {"description": "Commande modifiée"},

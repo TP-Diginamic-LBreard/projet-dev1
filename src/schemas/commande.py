@@ -85,8 +85,8 @@ class Commande(PartialCommande):
             cheqcli   = self.cheque,
             idcondit  = self.conditionnement,
             cdeComt   = self.commentaire,
-            barchive  = int(self.archivee),
-            bstock    = int(self.en_stock)
+            barchive  = int(self.archivee if self.archivee else False),
+            bstock    = int(self.en_stock if self.en_stock else False)
         )
 
 
@@ -121,6 +121,6 @@ class FullCommande(Commande):
             cheqcli   = self.cheque,
             idcondit  = self.conditionnement,
             cdeComt   = self.commentaire,
-            barchive  = int(self.archivee),
-            bstock    = int(self.en_stock)
+            barchive  = int(self.archivee if self.archivee else False),
+            bstock    = int(self.en_stock if self.en_stock else False)
         )
