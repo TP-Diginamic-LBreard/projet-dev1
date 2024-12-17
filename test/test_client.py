@@ -1,33 +1,29 @@
-import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from src.models import Base, Client
 from src.main import app
 from src.database import get_db
+from src.models import Base
 
-# Configuration pour utiliser une base de données SQLite en mémoire
-DATABASE_URL = "sqlite:///:memory:"
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+# Create an SQLite database in memory
+SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Dépendance overridée pour utiliser SQLite en mémoire
+# Override the get_db dependency to use the test database
 def override_get_db():
-    db = TestingSessionLocal()
     try:
+        db = TestingSessionLocal()
         yield db
     finally:
         db.close()
 
 app.dependency_overrides[get_db] = override_get_db
-client = TestClient(app)
 
-# Fixture pour initialiser et nettoyer la base de données pour chaque test
-@pytest.fixture(autouse=True)
-def setup_db():
-    Base.metadata.create_all(bind=engine)  # Crée les tables
-    yield
-    Base.metadata.drop_all(bind=engine)  # Supprime les tables après chaque test
+# Create the test database tables
+Base.metadata.create_all(bind=engine)
+
+client = TestClient(app)
 
 # ========================= TESTS CRUD ==========================
 
