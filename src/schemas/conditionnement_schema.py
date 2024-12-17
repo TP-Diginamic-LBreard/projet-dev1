@@ -5,6 +5,7 @@ class ConditionnementBase(BaseModel):
     poidscondit: int 
     prixcond: float 
     ordreimp: int = None
+    codobj: int
 
 # Schema to create a new conditionnement
 class ConditionnementCreate(ConditionnementBase):
@@ -15,6 +16,7 @@ class ConditionnementUpdate(BaseModel):
     libcondit: str = None
     poidscondit: int = None
     prixcond: float = None
+    codobj: int = None
 
 class ConditionnementRead(ConditionnementBase):
     idcondit: int

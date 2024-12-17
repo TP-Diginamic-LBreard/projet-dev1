@@ -18,19 +18,19 @@ def create(object: ObjectCreate, db):
     db.refresh(new_object)
     return new_object
 
-def update(id, ObjectUpdate: ObjectUpdate, db):
-    query = db.query(Objet).get(id) # get the targeted object
+def update(ObjectUpdate: ObjectUpdate, object: Objet, db):
     update_data = ObjectUpdate.model_dump(exclude_unset=True)  # transform schema in dictionnary and exclude undifined values
     for key, value in update_data.items():
-        setattr(query, key, value) # update attributes with defined values
-    db.add(query)
+        setattr(object, key, value) # update attributes with defined values
+    db.add(object)
     db.commit()
-    return
+    db.refresh(object)
+    return object
 
 def delete(id: int, db):
     # delete targeted object
-    test = db.query(Objet).filter(Objet.codobj == id).delete()
+    db.query(Objet).filter(Objet.codobj == id).delete()
     db.commit()
-    return test
+    return
 
 

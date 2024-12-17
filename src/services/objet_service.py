@@ -10,8 +10,12 @@ def get_object_byId(id, db):
 def create_object(object, db):
     return create(object, db)
 
-def update_object(id, object, db):
-    return update(id, object, db)
+def update_object(id, objectUpdate, db):
+    object = get_object_byId(id, db)
+    if object:
+        return update(objectUpdate, object, db)
+    else:
+        raise Exception("objet inconnu")
 
 def delete_object_byId(id, db): 
     return delete(id, db)

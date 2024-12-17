@@ -35,11 +35,10 @@ def post_object(object: ObjectCreate ,db = Depends(get_db)):
 #  update a "objet" corresponding to the provided id
 @router_object.put("/update/{id}")
 def put_object(id: int, object: ObjectUpdate, db = Depends(get_db)):
-    return update_object(id, object, db)
-    # try:
-    #     return update_object(id, object, db)
-    # except: 
-    #     raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
+    try:
+        return update_object(id, object, db)
+    except: 
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 # delete the "objet" corresponding to the provided id
 @router_object.delete("/{id}/delete")

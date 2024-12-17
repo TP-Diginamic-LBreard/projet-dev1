@@ -18,19 +18,19 @@ def create(conditionnement: ConditionnementCreate, db):
     return new_conditionnement
 
 # Set the id in the path
-def update(id, conditionnementUpdate: ConditionnementUpdate, db):
-    query = db.query(Conditionnement).get(id) # get the targeted conditionnement
+def update(conditionnementUpdate: ConditionnementUpdate, conditionnement: Conditionnement, db):
     update_data = conditionnementUpdate.model_dump(exclude_unset=True)  # transform schema in dictionnary and exclude undifined values
     for key, value in update_data.items():
-        setattr(query, key, value) # update attributes with defined values
-    db.add(query)
+        setattr(conditionnement, key, value) # update attributes with defined values
+    db.add(conditionnement)
     db.commit()
-    return
+    db.refresh(conditionnement)
+    return conditionnement
 
 def delete(id: int, db):
     # delete targeted conditionnement
-    test = db.query(Conditionnement).filter(Conditionnement.codobj == id).delete()
+    db.query(Conditionnement).filter(Conditionnement.idcondit == id).delete()
     db.commit()
-    return test
+    return
 
 
