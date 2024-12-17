@@ -15,6 +15,7 @@
           };
           pythonEnv = pkgs.python312.withPackages(ps: with ps; [
             fastapi
+            pydantic
             pymysql
             python-dotenv
             sqlalchemy
