@@ -8,20 +8,23 @@ from src.schemas.conditionnement_schema import ConditionnementCreate, Conditionn
 # le tag permet d'organiser les endpoint dans la doc
 router_conditionnement = APIRouter(prefix="/conditionnement", tags=["conditionnement"])
 
+# obtain list of all "conditionnements"
 @router_conditionnement.get("/")
 def get_oconditionnement(db = Depends(get_db)):
     try:
         return get_all_conditionnement(db)
     except:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
+
+# get a "conditionnement" by id
 @router_conditionnement.get("/{id}")
 def get_conditionnement(id: int, db: Session = Depends(get_db)):
     try:
         return get_conditionnement_byId(id, db)
     except:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
+
+# create a new "conditionnement"
 @router_conditionnement.post("/create")
 def post_conditionnement(conditionnement: ConditionnementCreate ,db = Depends(get_db)):
     try:
@@ -29,7 +32,7 @@ def post_conditionnement(conditionnement: ConditionnementCreate ,db = Depends(ge
     except:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
+#  update a "conditionnement" corresponding to the provided id
 @router_conditionnement.put("/update/{id}")
 def put_conditionnement(conditionnement: ConditionnementUpdate, db = Depends(get_db)):
     try:
@@ -37,6 +40,7 @@ def put_conditionnement(conditionnement: ConditionnementUpdate, db = Depends(get
     except: 
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+# delete the "conditionnement" corresponding to the provided id
 @router_conditionnement.delete("/{id}/delete")
 def delete_conditionnement(id: int, db = Depends(get_db)):
     try:

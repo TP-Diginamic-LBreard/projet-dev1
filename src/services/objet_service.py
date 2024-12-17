@@ -1,6 +1,6 @@
 from src.repositories.objet_repository import get_all_objects, get_object, delete, create, update
 
-
+# service connect the endpoints to the right repository function
 def get_all(db): 
     return get_all_objects(db)
 

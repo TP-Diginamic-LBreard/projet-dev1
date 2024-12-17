@@ -1,5 +1,6 @@
 from src.repositories.conditionnement_repository import get_all_conditionnement, get_conditionnement, delete, create, update
 
+# service connect the endpoints to the right repository function
 def get_all(db): 
     return get_all_conditionnement(db)
 

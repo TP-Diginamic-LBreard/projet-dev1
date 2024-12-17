@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+# Schema to create a new object
 class ObjectCreate(BaseModel):
     codobj: int
     libobj: str
@@ -13,6 +14,7 @@ class ObjectCreate(BaseModel):
     points: int
     o_ordre_aff: int = None
 
+# schema to update an object
 class ObjectUpdate(BaseModel):
     codobj: int 
     libobj: str = None 
