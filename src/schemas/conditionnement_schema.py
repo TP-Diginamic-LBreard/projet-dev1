@@ -1,10 +1,5 @@
 from pydantic import BaseModel
 
-
-
-# create conditionnement base with all attr remove 
-# create conditionnement base with all attr. 
-
 class ConditionnementBase(BaseModel):
     libcondit: str 
     poidscondit: int 

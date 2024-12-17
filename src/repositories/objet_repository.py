@@ -11,22 +11,15 @@ def get_object(id: int, db):
 
 def create(object: ObjectCreate, db):
     # create new object with mandatory data from the schema
-    new_object = Objet(
-        codobj=object.codobj,
-        libobj=object.libobj,
-        tailleobj= object.tailleobj,
-        poidsobj= object.poidsobj,
-        points= object.points)
+    new_object = Objet(**object.model_dump())
     # add optionnal attributes that have been defined
-    new_data = object.model_dump(exclude_unset=True)  # transform schema in dictionnary and exclude undifined values
-    for key, value in new_data.items():
-        setattr(new_object, key, value) # add attributes with defined values
     db.add(new_object)
     db.commit()
-    return
+    db.refresh(new_object)
+    return new_object
 
-def update(ObjectUpdate: ObjectUpdate, db):
-    query = db.query(Objet).get(ObjectUpdate.codobj) # get the targeted object
+def update(id, ObjectUpdate: ObjectUpdate, db):
+    query = db.query(Objet).get(id) # get the targeted object
     update_data = ObjectUpdate.model_dump(exclude_unset=True)  # transform schema in dictionnary and exclude undifined values
     for key, value in update_data.items():
         setattr(query, key, value) # update attributes with defined values

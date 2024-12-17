@@ -10,8 +10,8 @@ def get_conditionnement_byId(id, db):
 def create_conditionnement(conditionnement, db):
     return create(conditionnement, db)
 
-def update_conditionnement(conditionnement, db):
-    return update(conditionnement, db)
+def update_conditionnement(id, conditionnement, db):
+    return update(id, conditionnement, db)
 
 def delete_conditionnement_byId(id, db): 
     return delete(id, db)

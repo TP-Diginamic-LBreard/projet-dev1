@@ -10,8 +10,8 @@ def get_object_byId(id, db):
 def create_object(object, db):
     return create(object, db)
 
-def update_object(object, db):
-    return update(object, db)
+def update_object(id, object, db):
+    return update(id, object, db)
 
 def delete_object_byId(id, db): 
     return delete(id, db)

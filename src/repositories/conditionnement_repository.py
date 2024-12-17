@@ -11,15 +11,15 @@ def get_conditionnement(id: int, db):
 
 def create(conditionnement: ConditionnementCreate, db):
     # create new conditionnement with mandatory data from the schema
-    new_conditionnement = Conditionnement(conditionnement.model_dump())
+    new_conditionnement = Conditionnement(**conditionnement.model_dump())
     db.add(new_conditionnement)
     db.commit()
     db.refresh(new_conditionnement)
     return new_conditionnement
 
 # Set the id in the path
-def update(conditionnementUpdate: ConditionnementUpdate, db):
-    query = db.query(Conditionnement).get(conditionnementUpdate.codobj) # get the targeted conditionnement
+def update(id, conditionnementUpdate: ConditionnementUpdate, db):
+    query = db.query(Conditionnement).get(id) # get the targeted conditionnement
     update_data = conditionnementUpdate.model_dump(exclude_unset=True)  # transform schema in dictionnary and exclude undifined values
     for key, value in update_data.items():
         setattr(query, key, value) # update attributes with defined values

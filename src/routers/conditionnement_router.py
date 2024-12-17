@@ -34,9 +34,9 @@ def post_conditionnement(conditionnement: ConditionnementCreate ,db = Depends(ge
 
 #  update a "conditionnement" corresponding to the provided id
 @router_conditionnement.put("/update/{id}")
-def put_conditionnement(conditionnement: ConditionnementUpdate, db = Depends(get_db)):
+def put_conditionnement(id: int, conditionnement: ConditionnementUpdate, db = Depends(get_db)):
     try:
-        return update_conditionnement(conditionnement, db)
+        return update_conditionnement(id, conditionnement, db)
     except: 
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
