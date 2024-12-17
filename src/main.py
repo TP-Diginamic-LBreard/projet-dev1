@@ -3,7 +3,7 @@ from fastapi import FastAPI
 
 from src.database import engine
 from src.models import Base
-from src.routers.client_router import router_client
+from src.routers.client_router import router as router_client
 
 # definir les routes
 app = FastAPI()
