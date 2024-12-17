@@ -7,7 +7,7 @@ from src.services.client_service import (
     update_client_service,
     delete_client_service,
 )
-from src.database import get_dbpipi
+from src.database import get_db
 from src.models import Client
 
 router = APIRouter()
