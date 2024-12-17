@@ -13,12 +13,9 @@ class PartialCommande(BaseModel):
     nombre_colis: Optional[int] = None
     cheque: Optional[float] = None
     conditionnement: Optional[int] = None
-    # cdeComt = ???
-    arg1: Optional[str] = None
-    # barchive = ???
-    arg2: Optional[int] = None
-    # bstock = ???
-    arg3: Optional[int] = None
+    commentaire: Optional[str] = None
+    archivee: Optional[bool] = None
+    en_stock: Optional[bool] = None
 
 
     def merge_model(self, model: CommandeModel) -> CommandeModel:
@@ -43,14 +40,14 @@ class PartialCommande(BaseModel):
         if self.conditionnement:
             model.idcondit = self.conditionnement
 
-        if self.arg1:
-            model.cdeComt = self.arg1
+        if self.commentaire:
+            model.cdeComt = self.commentaire
 
-        if self.arg2:
-            model.barchive = self.arg2
+        if self.archivee is not None:
+            model.barchive = int(self.archivee)
 
-        if self.arg3:
-            model.bstock = self.arg3
+        if self.en_stock is not None:
+            model.bstock = int(self.en_stock)
 
         return model
 
@@ -72,9 +69,9 @@ class Commande(PartialCommande):
             nombre_colis    = model.nbcolis,
             cheque          = model.cheqcli if model.cheqcli else 0,
             conditionnement = model.idcondit,
-            arg1            = model.cdeComt,
-            arg2            = model.barchive,
-            arg3            = model.bstock,
+            commentaire     = model.cdeComt,
+            archivee        = bool(model.barchive),
+            en_stock        = bool(model.bstock),
         )
 
 
@@ -87,9 +84,9 @@ class Commande(PartialCommande):
             nbcolis   = self.nombre_colis,
             cheqcli   = self.cheque,
             idcondit  = self.conditionnement,
-            cdeComt   = self.arg1,
-            barchive  = self.arg2,
-            bstock    = self.arg3
+            cdeComt   = self.commentaire,
+            barchive  = int(self.archivee),
+            bstock    = int(self.en_stock)
         )
 
 
@@ -107,9 +104,9 @@ class FullCommande(Commande):
             nombre_colis    = model.nbcolis,
             cheque          = model.cheqcli if model.cheqcli else 0,
             conditionnement = model.idcondit,
-            arg1            = model.cdeComt,
-            arg2            = model.barchive,
-            arg3            = model.bstock,
+            commentaire     = model.cdeComt,
+            archivee        = bool(model.barchive),
+            en_stock        = bool(model.bstock),
         )
 
 
@@ -123,7 +120,7 @@ class FullCommande(Commande):
             nbcolis   = self.nombre_colis,
             cheqcli   = self.cheque,
             idcondit  = self.conditionnement,
-            cdeComt   = self.arg1,
-            barchive  = self.arg2,
-            bstock    = self.arg3
+            cdeComt   = self.commentaire,
+            barchive  = int(self.archivee),
+            bstock    = int(self.en_stock)
         )
