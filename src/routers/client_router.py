@@ -9,7 +9,7 @@ from src.services.client_service import (
 router_client = APIRouter(prefix="/client", tags=["client"])
 
 @router_client.get("/")
-def get_client(db: Session = Depends(get_db)):
+def get_all_client(db: Session = Depends(get_db)):
     try:
         return get_all(db)
     except:
