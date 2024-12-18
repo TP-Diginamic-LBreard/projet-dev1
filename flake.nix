@@ -14,11 +14,13 @@
             inherit system;
           };
           pythonEnv = pkgs.python312.withPackages(ps: with ps; [
+            coverage
             fastapi
             httpx
             pydantic
             pymysql
             pytest
+            pytest-cov
             python-dotenv
             sqlalchemy
             uvicorn

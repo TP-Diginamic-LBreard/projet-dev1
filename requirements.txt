@@ -1,8 +1,10 @@
+coverage
 fastapi
 httpx
 pydantic
 pymysql
 pytest
+pytest-cov
 sqlalchemy
 uvicorn
 python-dotenv
